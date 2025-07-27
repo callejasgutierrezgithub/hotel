@@ -1,0 +1,20 @@
+{
+  "clients": [
+    {
+      "id": "1",
+      "name": "Ana Paredes",
+      "dni": "12345678",
+      "email": "ana@example.com",
+      "phone": "789456123",
+      "address": "Av. Central 123"
+    },
+    {
+      "id": "5a11",
+      "name": "Pedro2",
+      "dni": "99415345",
+      "email": "peres@example.com",
+      "phone": "78546217",
+      "address": "Calle Rio"
+    }
+  ]
+}
