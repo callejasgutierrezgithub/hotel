@@ -4,8 +4,8 @@
     <div class="navbar-logo">El Eden - Hotel 5 Estrellas</div>
     <ul class="navbar-menu">
       <li><a href="/cliente">Cliente</a></li>
-      <li><a href="/">Habitación</a></li>
-      <li><a href="/">Reserva</a></li>
+      <li><a href="/habitacion">Habitación</a></li>
+      <li><a href="/reservacion">Reserva</a></li>
       <li><a href="/about">Acerca</a></li>
     </ul>
   </div>

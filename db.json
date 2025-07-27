@@ -1,7 +1,7 @@
 {
   "clients": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Ana Paredes",
       "dni": "12345678",
       "email": "ana@example.com",
@@ -9,12 +9,69 @@
       "address": "Av. Central 123"
     },
     {
-      "id": "5a11",
-      "name": "Pedro2",
-      "dni": "99415345",
-      "email": "peres@example.com",
-      "phone": "78546217",
-      "address": "Calle Rio"
+      "id": 2,
+      "name": "Carlos Rojas",
+      "dni": "87654321",
+      "email": "carlos@example.com",
+      "phone": "741852963",
+      "address": "Calle Sur 45"
+    },
+    {
+      "id": "b7a5",
+      "name": "Antorio",
+      "dni": "123456",
+      "email": "antonio@example.com",
+      "phone": "4875623",
+      "address": "Calle C"
+    }
+  ],
+  "rooms": [
+    {
+      "id": 1,
+      "number": "101",
+      "type": "simple",
+      "price": 45
+    },
+    {
+      "id": 2,
+      "number": "202",
+      "type": "doble",
+      "price": 70
+    },
+    {
+      "id": 3,
+      "number": "301",
+      "type": "suite",
+      "price": 120
+    },
+    {
+      "id": "5265",
+      "number": "357",
+      "type": "suite",
+      "price": 200
+    }
+  ],
+  "reservations": [
+    {
+      "id": 1,
+      "client_id": 1,
+      "room_id": 3,
+      "start_date": "2025-08-01",
+      "end_date": "2025-08-05"
+    },
+    {
+      "id": 2,
+      "client_id": 2,
+      "room_id": 2,
+      "start_date": "2025-08-10",
+      "end_date": "2025-08-12"
+    },
+    {
+      "id": "44f4",
+      "client_id": "b7a5",
+      "room_id": 1,
+      "start_date": "2025-07-27",
+      "end_date": "2025-07-28"
     }
   ]
 }

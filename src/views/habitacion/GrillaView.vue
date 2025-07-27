@@ -1,10 +1,10 @@
 <template>
   <div class="table-container">
-    <h2>Clientes</h2>
+    <h2>Habitaciones</h2>
     <input
       v-model="searchQuery"
       type="text"
-      placeholder="Buscar por nombre, DNI, email o teléfono"
+      placeholder="Buscar por número o tipo"
       class="search-input"
     />
 
@@ -12,59 +12,49 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Nombre</th>
-          <th>DNI</th>
-          <th>Email</th>
-          <th>Teléfono</th>
-          <th>Dirección</th>
+          <th>Número</th>
+          <th>Tipo</th>
+          <th>Precio por noche ($)</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
+        <!-- Nueva habitación -->
         <tr>
           <td>#</td>
-          <td><input v-model="newClient.name" placeholder="Nombre" /></td>
-          <td><input v-model="newClient.dni" placeholder="DNI" /></td>
-          <td><input v-model="newClient.email" placeholder="Email" /></td>
-          <td><input v-model="newClient.phone" placeholder="Teléfono" /></td>
-          <td><input v-model="newClient.address" placeholder="Dirección" /></td>
-          <td>
-            <button class="btn add" @click="addClient">Agregar</button>
-          </td>
+          <td><input v-model="newRoom.number" placeholder="Número" /></td>
+          <td><input v-model="newRoom.type" placeholder="Tipo (simple, doble...)" /></td>
+          <td><input v-model="newRoom.price" type="number" placeholder="Precio" /></td>
+          <td><button class="btn add" @click="addRoom">Agregar</button></td>
         </tr>
-        <tr v-for="client in filteredClients" :key="client.id">
-          <td>{{ client.id }}</td>
-          <td>{{ client.name }}</td>
-          <td>{{ client.dni }}</td>
-          <td>{{ client.email }}</td>
-          <td>{{ client.phone }}</td>
-          <td>{{ client.address }}</td>
+
+        <tr v-for="room in filteredRooms" :key="room.id">
+          <td>{{ room.id }}</td>
+          <td>{{ room.number }}</td>
+          <td>{{ room.type }}</td>
+          <td>{{ room.price.toFixed(2) }}</td>
           <td>
-            <button class="btn edit" @click="editClient(client)">Editar</button>
-            <button class="btn delete" @click="deleteClient(client.id)">Eliminar</button>
+            <button class="btn edit" @click="editRoom(room)">Editar</button>
+            <button class="btn delete" @click="deleteRoom(room.id)">Eliminar</button>
           </td>
         </tr>
       </tbody>
     </table>
 
+    <!-- Modal para editar -->
     <div v-if="showEditModal" class="modal-backdrop">
       <div class="modal-content">
-        <h2>Editar Cliente</h2>
-        <label>
-          Nombre: <input v-model="selectedClient.name" class="search-input" />
+        <h2>Editar Habitación</h2>
+        <label>Número:
+          <input v-model="selectedRoom.number" class="search-input" />
         </label>
-        <label>
-          DNI: <input v-model="selectedClient.dni" class="search-input" />
+        <label>Tipo:
+          <input v-model="selectedRoom.type" class="search-input" />
         </label>
-        <label>
-          Email: <input v-model="selectedClient.email" class="search-input" />
+        <label>Precio:
+          <input v-model="selectedRoom.price" type="number" class="search-input" />
         </label>
-        <label>
-          Teléfono: <input v-model="selectedClient.phone" class="search-input" />
-        </label>
-        <label>
-          Dirección: <input v-model="selectedClient.address" class="search-input" />
-        </label>
+
         <div style="display: flex; justify-content: end; gap: 10px; margin-top: 1rem;">
           <button class="btn delete" @click="closeModal">Cancelar</button>
           <button class="btn edit" @click="saveEdit">Guardar</button>
@@ -75,94 +65,81 @@
 </template>
 
 <script>
-import { computed } from 'vue';
 export default {
-  name: 'ClientesView',
+  name: 'HabitacionesView',
   data() {
     return {
       searchQuery: '',
-      clients: [],
-      newClient: {
-        name: '',
-        dni: '',
-        email: '',
-        phone: '',
-        address: ''
+      rooms: [],
+      newRoom: {
+        number: '',
+        type: '',
+        price: null
       },
-      selectedClient: null,
+      selectedRoom: null,
       showEditModal: false
     };
   },
   mounted() {
-    fetch('http://localhost:3000/clients')
+    fetch('http://localhost:3000/rooms')
       .then(res => res.json())
       .then(data => {
-        this.clients = data;
+        this.rooms = data;
       });
   },
   computed: {
-    filteredClients() {
-      const query = this.searchQuery.toLowerCase();
-      return this.clients.filter(client =>
-        (client.name || '').toLowerCase().includes(query) ||
-        (client.dni || '').toLowerCase().includes(query) ||
-        (client.email || '').toLowerCase().includes(query) ||
-        (client.phone || '').toLowerCase().includes(query)
+    filteredRooms() {
+      const q = this.searchQuery.toLowerCase();
+      return this.rooms.filter(r =>
+        (r.number || '').toLowerCase().includes(q) ||
+        (r.type || '').toLowerCase().includes(q)
       );
     }
   },
   methods: {
-    addClient() {
-      fetch('http://localhost:3000/clients', {
+    addRoom() {
+      fetch('http://localhost:3000/rooms', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(this.newClient)
+        body: JSON.stringify(this.newRoom)
       })
         .then(res => res.json())
         .then(saved => {
-          this.clients.push(saved);
-          this.newClient = {
-            name: '',
-            dni: '',
-            email: '',
-            phone: '',
-            address: ''
-          };
+          this.rooms.push(saved);
+          this.newRoom = { number: '', type: '', price: null };
         });
     },
-    editClient(client) {
-      this.selectedClient = { ...client };
+    editRoom(room) {
+      this.selectedRoom = { ...room };
       this.showEditModal = true;
     },
-    deleteClient(id) {
-      fetch(`http://localhost:3000/clients/${id}`, {
+    deleteRoom(id) {
+      fetch(`http://localhost:3000/rooms/${id}`, {
         method: 'DELETE'
-      })
-        .then(res => {
-          if (res.ok) {
-            this.clients = this.clients.filter(c => c.id !== id);
-          }
-        });
-    },
-    closeModal() {
-      this.showEditModal = false;
-      this.selectedClient = null;
+      }).then(res => {
+        if (res.ok) {
+          this.rooms = this.rooms.filter(r => r.id !== id);
+        }
+      });
     },
     saveEdit() {
-      fetch(`http://localhost:3000/clients/${this.selectedClient.id}`, {
+      fetch(`http://localhost:3000/rooms/${this.selectedRoom.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(this.selectedClient)
-      })
-        .then(res => {
-          if (res.ok) {
-            const i = this.clients.findIndex(c => c.id === this.selectedClient.id);
-            if (i !== -1) {
-              this.clients.splice(i, 1, { ...this.selectedClient });
-            }
-            this.closeModal();
+        body: JSON.stringify(this.selectedRoom)
+      }).then(res => {
+        if (res.ok) {
+          const index = this.rooms.findIndex(r => r.id === this.selectedRoom.id);
+          if (index !== -1) {
+            this.rooms.splice(index, 1, { ...this.selectedRoom });
           }
-        });
+          this.closeModal();
+        }
+      });
+    },
+    closeModal() {
+      this.selectedRoom = null;
+      this.showEditModal = false;
     }
   }
 };
