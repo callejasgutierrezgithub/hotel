@@ -1,14 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
-const routes = [
+const routes = [  
   {
     path: '/',
-    name: 'hotel',
-    component: () => import('../views/hotelView.vue')
-  },
-  {
-    path: '/cliente',
     name: 'cliente',    
     component: () => import('../views/cliente/IndexView.vue')
   },

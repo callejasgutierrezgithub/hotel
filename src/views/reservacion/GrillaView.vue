@@ -1,6 +1,6 @@
 <template>
   <div class="table-container">
-    <h2>Gestión de Reservas</h2>
+    <h2>Reservación De Habitaciones</h2>
 
     <table class="custom-table">
       <thead>

@@ -9,7 +9,7 @@
     <div class="main-container">
       <aside class="sidebar">
         <ul class="menu">
-          <li><router-link to="/cliente">Cliente</router-link></li>
+          <li><router-link to="/">Cliente</router-link></li>
           <li><router-link to="/habitacion">Habitación</router-link></li>
           <li><router-link to="/reservacion">Reserva</router-link></li>
           <li><router-link to="/about">Acerca</router-link></li>
