@@ -1,19 +1,23 @@
-# hotel
+# Sistema de Reservas de Habitaciones de un Hotel
 
-## Project setup
+## Nombre(s) de integrante(s):
+```
+Omar Callejas Gutierrez
+```
+
+## Pasos para iniciar el proyecto, dentro del proyecto ejecutar los siguientes comandos en la terminal
+
+## Instalacion de paquetes npm
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run proyecto
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Apara ejecutar el json-server abri otra terminal.  Dentro del proyecto, ejecutar
 ```
-npm run build
+npm run json:server
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

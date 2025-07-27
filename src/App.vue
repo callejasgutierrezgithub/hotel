@@ -1,52 +1,82 @@
 <template>
-  <nav class="navbar">
-  <div class="navbar-container">
-    <div class="navbar-logo">El Eden - Hotel 5 Estrellas</div>
-    <ul class="navbar-menu">
-      <li><a href="/cliente">Cliente</a></li>
-      <li><a href="/habitacion">Habitación</a></li>
-      <li><a href="/reservacion">Reserva</a></li>
-      <li><a href="/about">Acerca</a></li>
-    </ul>
+  <div class="layout">    
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-logo">El Edén - Hotel 5 Estrellas</div>
+      </div>
+    </nav>
+
+    <div class="main-container">
+      <aside class="sidebar">
+        <ul class="menu">
+          <li><router-link to="/cliente">Cliente</router-link></li>
+          <li><router-link to="/habitacion">Habitación</router-link></li>
+          <li><router-link to="/reservacion">Reserva</router-link></li>
+          <li><router-link to="/about">Acerca</router-link></li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <router-view />
+      </main>
+    </div>
   </div>
-</nav>  
-<router-view/>
 </template>
 
 <style scoped>
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .navbar {
-background-color: #0cb1fd;; /* Azul Bootstrap */
-padding: 0.75rem 1.5rem;
-color: white;
-font-family: sans-serif;
+  background-color: #2c3e50;
+  color: white;
+  padding: 1rem;
 }
-
 .navbar-container {
-display: flex;
-justify-content: space-between;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
-
 .navbar-logo {
-font-weight: bold;
-font-size: 1.25rem;
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 
-.navbar-menu {
-list-style: none;
-display: flex;
-gap: 1rem;
-margin: 0;
-padding: 0;
+.main-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
 }
 
-.navbar-menu li a {
-color: white;
-text-decoration: none;
-transition: color 0.3s;
+.sidebar {
+  width: 150px;
+  background-color: #34495e;
+  color: white;
+  padding: 1rem 0;
+}
+.menu {
+  list-style: none;
+  padding: 0;
+}
+.menu li {
+  margin: 0.5rem 0;
+}
+.menu a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: block;
+}
+.menu a.router-link-exact-active {
+  background-color: #1abc9c;
+  font-weight: bold;
 }
 
-.navbar-menu li a:hover {
-color: #ffc107; /* Amarillo Bootstrap */
+.content {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
 }
 </style>
